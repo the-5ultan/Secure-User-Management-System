@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### Other secrets ###
-/src/main/java/resources/application.properties
+/src/main/resources/application.properties
