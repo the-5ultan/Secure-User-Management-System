@@ -2,6 +2,7 @@ package com.practice.springboot.services;
 
 import com.practice.springboot.entities.User;
 import com.practice.springboot.repositories.UserRepository;
+import com.practice.springboot.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +20,6 @@ public class MyUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        return null;
+        return new UserPrincipal(user);
     }
 }
