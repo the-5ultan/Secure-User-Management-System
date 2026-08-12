@@ -27,18 +27,24 @@ public class ApplicationSecurityConfiguration {
 
     @Autowired
     private UserDetailsService userDetailsService;
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//
-//        http
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/", "/login", "/register").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                .formLogin(Customizer.withDefaults());
-//
-//        return http.build();
-//    }
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers( "/login", "/register", "/css/**", "/js/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/",true)
+                        .permitAll()
+                );
+
+        return http.build();
+    }
 
 //    @Bean
 //    protected UserDetailsService userDetailsService() {
@@ -54,5 +60,9 @@ public class ApplicationSecurityConfiguration {
         return  authenticationProvider;
     }
 
+    // was used in the old spirngboot versions
+//    protected void configure(HttpSecurity httpSecurity) throws Exception{
+//        httpSecurity.csrf().disable().loginForm()
+//    }
 
 }
