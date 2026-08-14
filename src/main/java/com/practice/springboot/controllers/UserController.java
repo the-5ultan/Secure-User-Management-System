@@ -17,4 +17,9 @@ public class UserController {
     public String login(){
         return "login";
     }
+
+    @RequestMapping(path="/logout")
+    public String logout(){
+        return "login";
+    }
 }
