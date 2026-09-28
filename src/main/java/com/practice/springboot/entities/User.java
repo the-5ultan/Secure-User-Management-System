@@ -1,12 +1,13 @@
 package com.practice.springboot.entities;
 
+import com.practice.springboot.enums.AuthProvider;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Audited    ;
 
 @Entity
 @Data
-@Audited.Table(name = "users")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -20,7 +21,7 @@ public class User {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private String provider;
+    private AuthProvider provider;
 
     private String providerId;
 }

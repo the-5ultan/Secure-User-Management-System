@@ -1,5 +1,6 @@
 package com.practice.springboot.configrations;
 
+import com.practice.springboot.services.CustomOidcUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,8 +30,12 @@ public class ApplicationSecurityConfiguration {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private CustomOidcUserService customOidcUserService;
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomOidcUserService customOidcUserService) throws Exception {
 
         http
                 .csrf(csrf -> csrf.disable())
@@ -56,6 +61,9 @@ public class ApplicationSecurityConfiguration {
                 )
                 .oauth2Login(oauth -> oauth
                         .loginPage("/login")
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .oidcUserService(customOidcUserService)
+                        )
                 );
 
         return http.build();
