@@ -1,6 +1,6 @@
 package com.practice.springboot.enums;
 
-enum AuthProvider {
+public enum AuthProvider {
     LOCAL,
     GOOGLE
 }
